@@ -25,7 +25,7 @@ campsiteRouter.route('/')
     })
     .put((req, res) => {
         res.statusCode = 403;
-        res.end('PUT operation not supported on /campsites');
+        res.end('Put operation not supported on /campsites');
     })
     .delete((req, res, next) => {
         Campsite.deleteMany()
@@ -63,7 +63,7 @@ campsiteRouter.route('/:campsiteId')
             .catch(err => next(err));
     })
     .delete((req, res, next) => {
-        Campsite.findByIdAndDelete(req.params.campsiteId)
+        Campsite.findByIdAndUpdate(req.params.campsiteId)
             .then(response => {
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
@@ -110,7 +110,7 @@ campsiteRouter.route('/:campsiteId/comments')
     })
     .put((req, res) => {
         res.statusCode = 403;
-        res.end(`PUT operation not supported on /campsites/${req.params.campsiteId}/comments`);
+        res.end(`Put operation not supported on /campsites/${req.params.campsiteId}/comments`);
     })
     .delete((req, res, next) => {
         Campsite.findById(req.params.campsiteId)
@@ -157,7 +157,7 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
     })
     .post((req, res) => {
         res.statusCode = 403;
-        res.end(`POST operation not supported on /campsites/${req.params.campsiteId}/comments/${req.params.commentId}`);
+        res.end(`POST operation not supported on /campsites/${req.params.campsiteId}/comments/${req.params.commentId}`)
     })
     .put((req, res, next) => {
         Campsite.findById(req.params.campsiteId)
@@ -167,7 +167,7 @@ campsiteRouter.route('/:campsiteId/comments/:commentId')
                         campsite.comments.id(req.params.commentId).rating = req.body.rating;
                     }
                     if (req.body.text) {
-                        campsite.comments.id(req.params.commentId).text = req.body.text;
+                        campsite.comments.id(req.params.comment.commentId).text = req.body.text;
                     }
                     campsite.save()
                         .then(campsite => {
